@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Factor | Revolutionary Painting Industry Software</title>
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-dark: #2563EB;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --gray: #94A3B8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo svg {
+            margin-right: 0.75rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: var(--dark);
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .secondary-button {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: 1px solid var(--primary);
+        }
+        
+        .secondary-button:hover {
+            background-color: #EFF6FF;
+        }
+        
+        .features {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            background-color: #EFF6FF;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .users {
+            padding: 5rem 0;
+            background-color: #F8FAFC;
+        }
+        
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .user-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2rem;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .user-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .problem, .solution {
+            padding: 1rem;
+            border-radius: 0.375rem;
+        }
+        
+        .problem {
+            background-color: #FEF2F2;
+            border-left: 3px solid #EF4444;
+        }
+        
+        .solution {
+            background-color: #ECFDF5;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .problem h4, .solution h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .problem h4 {
+            color: #B91C1C;
+        }
+        
+        .solution h4 {
+            color: #065F46;
+        }
+        
+        .roadmap {
+            padding: 5rem 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--gray);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            padding: 0 2rem 3rem 2rem;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 0;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -14px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -14px;
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .timeline-content .date {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .cta-white {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-white:hover {
+            background-color: #F8FAFC;
+        }
+        
+        .cta-outline {
+            background-color: transparent;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: 1px solid white;
+        }
+        
+        .cta-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-brand {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .social-icons a:hover {
+            opacity: 1;
+        }
+        
+        .footer-links h4 {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.6;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-grid, .user-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                left: 18px;
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even)::after {
+                left: 18px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="6" y="12" width="4" height="6" rx="1" fill="currentColor"/>
+                        <rect x="14" y="12" width="4" height="6" rx="1" fill="currentColor"/>
+                    </svg>
+                    Paint Factor
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#users">Who It's For</a>
+                    <a href="#roadmap">Roadmap</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <a href="#cta" class="cta-button">Join Waitlist</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Revolutionizing the Painting Industry</h1>
+                <p>Paint Factor is a groundbreaking software platform that connects painting contractors with homeowners through intelligent estimation, transparent pricing, and seamless project management.</p>
+                <div class="hero-buttons">
+                    <a href="#cta" class="cta-button">Join Waitlist</a>
+                    <a href="#features" class="secondary-button">Explore Features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Paint Factor Matters</h2>
+                <p>Our platform solves the core inefficiencies in the painting industry with powerful estimation tools and transparent project management.</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>AI-Enhanced Estimation</h3>
+                    <p>Upload photos or blueprints and our AI technology automatically calculates surface areas, identifies paintable components, and generates accurate estimates within minutes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </div>
+                    <h3>Atomic-Level Task Database</h3>
+                    <p>Access a comprehensive database of painting tasks with industry-standard production rates, helping contractors create consistently accurate bids without starting from scratch.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                    </div>
+                    <h3>Dynamic Work Scope</h3>
+                    <p>Homeowners can customize their project scope in real-time, adding or removing items to see how it affects pricing, ensuring transparency and budget control.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Project Management Suite</h3>
+                    <p>Contractors can track progress, manage crews, log time, and communicate with clients all in one platform, eliminating the need for multiple disconnected tools.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                        </svg>
+                    </div>
+                    <h3>Material Management</h3>
+                    <p>Automatically generate materials lists based on project scope, create purchase orders, and track inventory to streamline procurement and reduce waste.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Contractor Discovery</h3>
+                    <p>Homeowners can find reputable painters in their area, compare verified reviews, and request quotes based on their project scope, making hiring decisions data-driven.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="users" id="users">
+        <div class="container">
+            <div class="section-header">
+                <h2>Who Paint Factor Serves</h2>
+                <p>Our platform bridges the gap between painting contractors and homeowners, solving key problems for both groups.</p>
+            </div>
+            
+            <div class="user-grid">
+                <div class="user-card">
+                    <h3>Painting Contractors</h3>
+                    <p>From solo painters to large companies, Paint Factor provides the tools to streamline operations and grow your business.</p>
+                    
+                    <div class="problem-solution">
+                        <div class="problem">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                                Problem
+                            </h4>
+                            <p>Inaccurate estimating, inefficient site visits, and disjointed project management tools.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                Solution
+                            </h4>
+                            <p>Standardized estimation, AI-powered measurements, and an all-in-one project management system.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="user-card">
+                    <h3>Homeowners</h3>
+                    <p>Get clarity and control over your painting project from start to finish, without the typical uncertainty.</p>
+                    
+                    <div class="problem-solution">
+                        <div class="problem">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                                Problem
+                            </h4>
+                            <p>Difficulty obtaining transparent quotes, unclear project scopes, and uncertainty about contractor reliability.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                Solution
+                            </h4>
+                            <p>Detailed project scopes, customizable estimates, and contractor verification with aggregated reviews.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="user-card">
+                    <h3>Industry Partners</h3>
+                    <p>Paint suppliers, manufacturers, and service providers can connect with a targeted audience of active painting professionals and customers.</p>
+                    
+                    <div class="problem-solution">
+                        <div class="problem">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                                Problem
+                            </h4>
+                            <p>Fragmented market access, inefficient ordering processes, and limited data on product performance.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                Solution
+                            </h4>
+                            <p>Integrated marketplace, streamlined material ordering, and valuable industry insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2>Development Roadmap</h2>
+                <p>Paint Factor is being built with a phased approach, focusing on delivering immediate value while building toward a comprehensive solution.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 1: MVP Launch</h3>
+                        <span class="date">Q2 2025</span>
+                        <p>Core estimation engine with standard task rates, basic AI measurement capabilities, contractor profiles, and homeowner project creation.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 2: Core Functionality</h3>
+                        <span class="date">Q4 2025</span>
+                        <p>Enhanced project management suite, advanced time tracking, automated material ordering, client portal, and improved mobile capabilities.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 3: Advanced Features</h3>
+                        <span class="date">Q2 2026</span>
+                        <p>Machine learning for continuous improvement, comprehensive analytics dashboard, enterprise features, advanced supplier integrations, and mobile app launch.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 4: Expansion</h3>
+                        <span class="date">Q4 2026</span>
+                        <p>Platform expansion to adjacent trades, advanced AI capabilities, deeper integrations, and enterprise-level features for large organizations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>Be Part of the Transformation</h2>
+            <p>Paint Factor is currently in development and seeking early adopters, investors, and industry partners. Join us in revolutionizing the painting industry.</p>
+            <div class="cta-buttons">
+                <a href="#mailing-list" class="cta-white">Join Waitlist</a>
+                <a href="#" class="cta-outline">Partner With Us</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mailing List Section -->
+    <!-- Added as per integration instructions -->
+    <section class="mailing-list-section" id="mailing-list">
+        <div class="container">
+            <div class="section-header">
+                <h2>Stay Updated</h2>
+                <p>Join our mailing list to receive updates on Paint Factor's development, early access opportunities, and industry insights.</p>
+            </div>
+            
+            <div class="mailing-list-container">
+                <form id="subscriptionForm" class="subscription-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nameInput">Full Name</label>
+                            <input type="text" id="nameInput" name="name" class="form-control" placeholder="Your name" required>
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emailInput">Email Address</label>
+                            <input type="email" id="emailInput" name="email" class="form-control" placeholder="Your email address" required>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group user-type">
+                        <label>I am a:</label>
+                        <div class="user-type-options">
+                            <div class="radio-option">
+                                <input type="radio" id="userTypeContractor" name="userType" value="contractor" checked>
+                                <label for="userTypeContractor">Painting Contractor</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="userTypeHomeowner" name="userType" value="homeowner">
+                                <label for="userTypeHomeowner">Homeowner</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="userTypePartner" name="userType" value="partner">
+                                <label for="userTypePartner">Industry Partner</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group preferences">
+                        <label>Preferences:</label>
+                        <div class="checkbox-options">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="prefProductUpdates" name="preferences" value="productUpdates" checked>
+                                <label for="prefProductUpdates">Product Updates</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="prefEarlyAccess" name="preferences" value="earlyAccess">
+                                <label for="prefEarlyAccess">Early Access Opportunities</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group submit-container">
+                        <button type="submit" class="cta-button submit-btn">Subscribe</button>
+                        <div class="loader" id="submitLoader"></div>
+                    </div>
+                    
+                    <div class="submission-messages">
+                        <div class="success-message" id="successMessage">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <p>Thank you for subscribing! We'll keep you updated on all the latest Paint Factor news.</p>
+                        </div>
+                        <div class="error-message-container" id="errorContainer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                            <p id="errorMessage">Something went wrong. Please try again later.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="6" y="12" width="4" height="6" rx="1" fill="currentColor"/>
+                            <rect x="14" y="12" width="4" height="6" rx="1" fill="currentColor"/>
+                        </svg>
+                        Paint Factor
+                    </h3>
+                    <p>Transforming the painting industry through technology that connects contractors and homeowners with transparency, accuracy, and efficiency.</p>
+                    <div class="social-icons">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Beta Program</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Paint Factor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Add the JavaScript for the mailing list form -->
+    <script src="js/mailing-list.js"></script>
+</body>
+</html>

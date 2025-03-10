@@ -1,0 +1,201 @@
+<section class="mailing-list-section" id="mailing-list">
+    <div class="container">
+        <div class="section-header">
+            <h2>Stay Updated</h2>
+            <p>Join our mailing list to receive updates on Paint Factor's development, early access opportunities, and industry insights.</p>
+        </div>
+        
+        <div class="mailing-list-container">
+            <form id="subscriptionForm" class="subscription-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nameInput">Full Name</label>
+                        <input type="text" id="nameInput" name="name" class="form-control" placeholder="Your name" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailInput">Email Address</label>
+                        <input type="email" id="emailInput" name="email" class="form-control" placeholder="Your email address" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group user-type">
+                    <label>I am a:</label>
+                    <div class="user-type-options">
+                        <div class="radio-option">
+                            <input type="radio" id="userTypeContractor" name="userType" value="contractor" checked>
+                            <label for="userTypeContractor">Painting Contractor</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="userTypeHomeowner" name="userType" value="homeowner">
+                            <label for="userTypeHomeowner">Homeowner</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="userTypePartner" name="userType" value="partner">
+                            <label for="userTypePartner">Industry Partner</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group preferences">
+                    <label>Preferences:</label>
+                    <div class="checkbox-options">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prefProductUpdates" name="preferences" value="productUpdates" checked>
+                            <label for="prefProductUpdates">Product Updates</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prefEarlyAccess" name="preferences" value="earlyAccess">
+                            <label for="prefEarlyAccess">Early Access Opportunities</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group submit-container">
+                    <button type="submit" class="cta-button submit-btn">Subscribe</button>
+                    <div class="loader" id="submitLoader"></div>
+                </div>
+                
+                <div class="submission-messages">
+                    <div class="success-message" id="successMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <p>Thank you for subscribing! We'll keep you updated on all the latest Paint Factor news.</p>
+                    </div>
+                    <div class="error-message-container" id="errorContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <p id="errorMessage">Something went wrong. Please try again later.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .mailing-list-section {
+        padding: 5rem 0;
+        background-color: #F8FAFC;
+    }
+    
+    .mailing-list-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        padding: 2.5rem;
+    }
+    
+    .subscription-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 0.375rem;
+        border: 1px solid var(--gray);
+        font-size: 1rem;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    }
+    
+    .user-type-options, .checkbox-options {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    .radio-option, .checkbox-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .submit-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .submit-btn {
+        padding: 0.75rem 2rem;
+    }
+    
+    .loader {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary);
+        animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .submission-messages {
+        margin-top: 1rem;
+    }
+    
+    .success-message, .error-message-container {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.375rem;
+    }
+    
+    .success-message {
+        background-color: #ECFDF5;
+        color: #065F46;
+    }
+    
+    .error-message-container {
+        background-color: #FEF2F2;
+        color: #B91C1C;
+    }
+    
+    .error-message {
+        color: #B91C1C;
+        font-size: 0.875rem;
+    }
+    
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .user-type-options, .checkbox-options {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+    }
