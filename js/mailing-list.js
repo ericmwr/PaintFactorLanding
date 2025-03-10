@@ -1,8 +1,9 @@
 /**
  * Paint Factor Mailing List Script
- * Version 1.0.0
+ * Version 1.1.0
  * 
  * This script handles the validation and submission of the mailing list subscription form.
+ * Updated to work with Netlify Forms.
  */
 
 (function() {
@@ -10,8 +11,6 @@
     
     // Configuration
     const config = {
-        apiEndpoint: 'https://api.paintfactor.com/subscribe',
-        recaptchaSiteKey: '', // Add your reCAPTCHA site key here if using
         analyticsEnabled: true,
         debugMode: false // Set to true for additional console logging
     };
@@ -184,31 +183,34 @@
     }
     
     /**
-     * Submit form data to the API
+     * Submit form data using Netlify Forms
      * @param {Object} data - The form data
-     * @returns {Promise<Object>} The API response
+     * @returns {Promise<Object>} The submission result
      */
     async function submitForm(data) {
-        const response = await fetch(config.apiEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        
-        // For demo purposes, simulate a successful response
-        // Remove this in production and use the actual API response
-        if (!response.ok) {
-            logDebug('API error:', response.status, response.statusText);
+        try {
+            // For Netlify Forms, we'll let the native form submission handle the data
+            // This function is still useful for client-side validation and success handling
             
-            // Simulate success for testing purposes
-            // Remove this in production
-            // return { success: false, message: 'Server error: ' + response.statusText };
+            // Create a FormData object from the actual form
+            const formData = new FormData(form);
+            
+            // Add the JSON data as a hidden field for additional processing if needed
+            formData.append('form-data-json', JSON.stringify(data));
+            
+            // Submit the form data to Netlify
+            await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            });
+            
+            // If we get here, the submission was successful
             return { success: true, message: 'Subscription successful' };
+        } catch (error) {
+            logDebug('Form submission error:', error);
+            return { success: false, message: 'Error submitting form. Please try again.' };
         }
-        
-        return await response.json();
     }
     
     /**
